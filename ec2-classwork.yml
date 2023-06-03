@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Creating EC2 Instance 
+
+Parameters: 
+  InstanceTypeParameter: 
+    Description: Select an Instance Type
+    Type: String 
+    Default: t2.micro 
+    AllowedValues: 
+      - t2.micro
+      - m1.small
+      - m1.large
+
+Resources:
+  Instance:
+    Type: AWS::EC2::Instance 
+    Properties: 
+      ImageId: ami-0715c1897453cabd1
+      KeyName: gulnaz
+      InstanceType: !Ref InstanceTypeParameter
+      SecurityGroupIds: 
+        - !Ref InstanceSecurityGroup
+      IamInstanceProfile: !Ref InstanceProfile
+
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties: 
+      InstanceProfileName: EC2InstanceProfile
+      Roles: 
+        - CloudWatchAgentServerRole
+
+  InstanceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow only my IP
+      VpcId: vpc-059bf87e2986d2907
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: '76.245.194.245/32'
+     
+     
