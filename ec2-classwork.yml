@@ -33,11 +33,11 @@ Resources:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow only my IP
-      VpcId: vpc-059bf87e2986d2907
+      VpcId: "XXX"
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
-          CidrIp: '76.245.194.245/32'
+          CidrIp: 'XXX'
      
      
